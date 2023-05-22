@@ -2,7 +2,8 @@ from __future__ import division
 from __future__ import print_function
 
 import time
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_eager_execution()
 
 from gcn.utils import *
 from gcn.models import GCN, MLP
@@ -52,7 +53,8 @@ placeholders = {
     'labels': tf.placeholder(tf.float32, shape=(None, y_train.shape[1])),
     'labels_mask': tf.placeholder(tf.int32),
     'dropout': tf.placeholder_with_default(0., shape=()),
-    'num_features_nonzero': tf.placeholder(tf.int32)  # helper variable for sparse dropout
+    'num_features_nonzero': tf.placeholder(tf.int32),  # helper variable for sparse dropout
+    'phase_train': tf.placeholder(tf.int32)
 }
 
 # Create model
